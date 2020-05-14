@@ -1,0 +1,47 @@
+Question Title: EKO - Eko
+Link: https://www.spoj.com/problems/EKO/
+
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+bool isPossible(long long int t[],long long int n,long long int mid,long long int m)
+{
+	long long int l=0;
+	for(long long int i=0;i<n;i++)
+	{
+		if((t[i]-mid)>0)
+			l = l+(t[i]-mid);
+	}
+	if(l>=m)
+		return true;
+	else
+		return false;
+
+}
+int main()
+{
+	long long int n,m;
+	cin>>n>>m;
+	long long int t[n];
+	for(int i=0;i<n;i++)
+	{
+		cin>>t[i];
+	}
+	sort(t,t+n);
+	long long int l=0,r=t[n-1],mid,ans;
+
+	while(l<=r)
+	{
+		mid = l + (r-l)/2;
+		if(isPossible(t,n,mid,m))
+		{
+			ans=mid;
+			l=mid+1;
+		}
+		else
+			r=mid-1;
+	}
+	cout<<ans;
+	return 0;
+}
