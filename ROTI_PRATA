@@ -1,0 +1,71 @@
+Question Title: PRATA - Roti Prata
+Link: https://www.spoj.com/problems/PRATA/
+
+
+
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+bool isPossible(int r[],int l,int p,int mid)
+{
+    int par=0,time=0;
+    for(int i=0;i<l;i++)
+    {
+        int a=r[i],z=1;
+        time=a;
+        while(time<=mid)
+        {
+            par++;z++;
+            if(time<=mid)
+            {
+                time=time+(a*z);
+            }
+            else
+            {
+                par--;
+                break;
+            }
+        }
+    }
+    if(par>=p)
+        return true;
+    else
+        return false;
+}
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int p,l;
+        cin>>p>>l;
+        int r[l];
+        for(int i=0;i<l;i++)
+            cin>>r[i];
+        sort(r,r+l);
+        int left = 0, right = (r[l-1]*p*(p+1))/2,mid,ans=-1;
+        if(l==1)
+        {
+            cout<<right<<endl;
+            continue;
+        }
+        while(left<=right)
+        {
+            mid = left+(right-left)/2;
+            if(isPossible(r,l,p,mid))
+            {
+                ans = mid;
+                right=mid-1;
+            }
+            else
+            {
+                left=mid+1;
+            }
+        }
+        cout<<ans<<endl;
+    }
+    return 0;
+}
