@@ -1,0 +1,37 @@
+Question Title: Next Greater Element
+Link: https://www.geeksforgeeks.org/next-greater-element/
+
+
+
+#include <iostream>
+#include <stack>
+
+using namespace std;
+
+void nextGreater(int a[],int n)
+{
+    stack <int> s;
+    s.push(a[n-1]);
+    cout<<a[n-1]<<"-->"<<-1<<endl;
+    for(int i=n-2;i>=0;i--)
+    {
+        while(!s.empty() && s.top()<a[i])
+            s.pop();
+        if(s.empty())
+            cout<<a[i]<<"-->"<<-1<<endl;
+        else
+            cout<<a[i]<<"-->"<<s.top()<<endl;
+        s.push(a[i]);
+    }
+}
+int main()
+{
+    int n;
+    cout<<"Enter number of elements: ";
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++)
+        cin>>a[i];
+    nextGreater(a,n);
+    return 0;
+}
