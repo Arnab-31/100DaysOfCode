@@ -1,0 +1,54 @@
+Question title: Check for balanced parentheses in an expression
+Link: https://www.geeksforgeeks.org/check-for-balanced-parentheses-in-an-expression/
+
+
+#include <iostream>
+#include <stack>
+
+using namespace std;
+bool checkParenthesis(string e)
+{
+    int l=e.length();
+    stack <char> s;
+    for(int i=0;i<l;i++)
+    {
+        if(e[i]=='(' || e[i]=='[' || e[i]=='{')
+            s.push(e[i]);
+        else if(e[i]==')')
+        {
+            if(s.top()=='(')
+                s.pop();
+            else
+                return false;
+        }
+        else if(e[i]==']')
+        {
+            if(s.top()=='[')
+                s.pop();
+            else
+                return false;
+        }
+        else if(e[i]=='}')
+        {
+            if(s.top()=='{')
+                s.pop();
+            else
+                return false;
+        }
+    }
+    if(s.top()<0)
+        return true;
+    else
+        return false;
+}
+int main()
+{
+    string e;
+    cout <<"Enter expression: "<< endl;
+    cin>>e;
+    if(checkParenthesis(e))
+        cout<<"Balanced"<<endl;
+    else
+        cout<<"Not Balanced"<<endl;
+    return 0;
+}
