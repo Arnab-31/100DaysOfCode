@@ -1,0 +1,22 @@
+Question Title: Zoos
+Link: https://www.hackerearth.com/practice/basic-programming/input-output/basics-of-input-output/practice-problems/algorithm/is-zoo-f6f309e7/
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+int main() 
+{
+	string s;
+	cin>>s;
+	int x=0;
+	while(s[x]=='z')
+	{
+		x++;
+	}
+	int y=s.length()-x;
+	if(2*x==y)
+		cout<<"Yes";
+	else
+		cout<<"No";
+}
