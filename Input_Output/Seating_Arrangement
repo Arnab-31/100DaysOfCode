@@ -1,0 +1,41 @@
+Question Title: Seating Arrangement
+Link: https://www.hackerearth.com/practice/basic-programming/input-output/basics-of-input-output/practice-problems/algorithm/seating-arrangement-1/
+
+#include<iostream>
+using namespace std;
+int main()
+{
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		int n,a;
+		cin>>n;
+		string s;
+		a=n%12;
+		if(a==0)
+			cout<<n-11<<" "<<"WS"<<endl;
+		else if(a==1)
+			cout<<n+11<<" "<<"WS"<<endl;
+		else if(a==2)
+			cout<<n+9<<" "<<"MS"<<endl;
+		else if(a==11)
+			cout<<n-9<<" "<<"MS"<<endl;
+		else if(a==3)
+			cout<<n+7<<" "<<"AS"<<endl;
+		else if(a==10)
+			cout<<n-7<<" "<<"AS"<<endl;
+		else if(a==4)
+			cout<<n+5<<" "<<"AS"<<endl;
+		else if(a==9)
+			cout<<n-5<<" "<<"AS"<<endl;
+		else if(a==5)
+			cout<<n+3<<" "<<"MS"<<endl;
+		else if(a==8)
+			cout<<n-3<<" "<<"MS"<<endl;
+		else if(a==6)
+			cout<<n+1<<" "<<"WS"<<endl;
+		else if(a==7)
+			cout<<n-1<<" "<<"WS"<<endl;
+	}		
+}
