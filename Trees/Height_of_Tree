@@ -1,0 +1,165 @@
+Program to find height of tree
+
+#include <iostream>
+
+using namespace std;
+
+struct node
+{
+    node* lchild;
+    int data;
+    node* rchild;
+};
+
+class queue
+{
+    int size,front,rear;
+    node **a;
+    public:
+  queue()
+  {
+      size = 100;
+      front = rear = -1;
+      a = new node*[size];
+  }
+  void enqueue(node *x)
+  {
+       rear++;
+      a[rear]=x;
+  }
+  node* dequeue()
+  {
+      front++;
+      return a[front];
+  }
+  bool isEmpty()
+  {
+      if(front!=-1 && front==rear)
+        return true;
+      else
+        return false;
+  }
+};
+
+class stack
+{
+    int top,size;
+    node** n;
+    public:
+    stack()
+    {
+        size=100;
+        n=new node*[100];
+        top=-1;
+    }
+    void push(node* x)
+    {
+        n[++top]=x;
+    }
+    node* pop()
+    {
+        return n[top--];
+    }
+    bool isEmpty()
+    {
+        if(top==-1)
+            return true;
+        else
+            return false;
+    }
+};
+
+class Tree
+{
+    public:
+    node* r;
+    Tree()
+    {
+        queue q;
+        int d;
+        cout<<"Enter root value "<<endl;
+        cin>>d;
+        r = new node();
+        r->data=d;
+        r->lchild=NULL;
+        r->rchild=NULL;
+        q.enqueue(r);
+        while(!q.isEmpty())
+        {
+            node* x;
+            x=q.dequeue();
+            cout<<"Enter left child of "<<x->data<<" ";
+            cin>>d;
+            if(d!=-1)
+            {
+                node* n = new node();
+                n->data=d;
+                n->lchild=NULL;
+                n->rchild=NULL;
+                q.enqueue(n);
+                x->lchild=n;
+            }
+            cout<<"Enter right child of "<<x->data<<" ";
+            cin>>d;
+            if(d!=-1)
+            {
+                node* n = new node();
+                n->data=d;
+                n->lchild=NULL;
+                n->rchild=NULL;
+                q.enqueue(n);
+                x->rchild=n;
+            }
+        }
+    }
+
+    int height(node *n)
+    {
+        if(n==NULL)
+            return 0;
+        int lheight=height(n->lchild);
+        int rheight=height(n->rchild);
+        if(lheight>rheight)
+            return lheight+1;
+        else
+            return rheight+1;
+    }
+
+    void preOrder(node *n)
+    {
+        if(n!=NULL)
+        {
+            cout<<n->data<<" ";
+            preOrder(n->lchild);
+            preOrder(n->rchild);
+        }
+    }
+
+    void Inorder(node *n)
+    {
+        if(n!=NULL)
+        {
+            Inorder(n->lchild);
+            cout<<n->data<<" ";
+            Inorder(n->rchild);
+        }
+    }
+
+    void Postorder(node *n)
+    {
+        if(n!=NULL)
+        {
+            Postorder(n->lchild);
+            Postorder(n->rchild);
+            cout<<n->data<<" ";
+        }
+    }
+};
+
+int main()
+{
+    Tree t;
+    cout<<"Height of tree: ";
+    cout<<t.height(t.r);
+    return 0;
+}
