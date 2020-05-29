@@ -1,0 +1,173 @@
+Create mirror of tree using two queue and iteration
+
+#include <iostream>
+
+using namespace std;
+
+struct node
+{
+    node* lchild;
+    int data;
+    node* rchild;
+};
+
+class queue
+{
+    int size,front,rear;
+    node **a;
+    public:
+  queue()
+  {
+      size = 100;
+      front = rear = -1;
+      a = new node*[size];
+  }
+  void enqueue(node *x)
+  {
+       rear++;
+      a[rear]=x;
+  }
+  node* dequeue()
+  {
+      front++;
+      return a[front];
+  }
+  bool isEmpty()
+  {
+      if(front!=-1 && front==rear)
+        return true;
+      else
+        return false;
+  }
+};
+
+class Tree
+{
+    public:
+    node* r;
+    Tree()
+    {
+        queue q;
+        int d;
+        cout<<"Enter root value "<<endl;
+        cin>>d;
+        r = new node();
+        r->data=d;
+        r->lchild=NULL;
+        r->rchild=NULL;
+        q.enqueue(r);
+        while(!q.isEmpty())
+        {
+            node* x;
+            x=q.dequeue();
+            cout<<"Enter left child of "<<x->data<<" ";
+            cin>>d;
+            if(d!=-1)
+            {
+                node* n = new node();
+                n->data=d;
+                n->lchild=NULL;
+                n->rchild=NULL;
+                q.enqueue(n);
+                x->lchild=n;
+            }
+            cout<<"Enter right child of "<<x->data<<" ";
+            cin>>d;
+            if(d!=-1)
+            {
+                node* n = new node();
+                n->data=d;
+                n->lchild=NULL;
+                n->rchild=NULL;
+                q.enqueue(n);
+                x->rchild=n;
+            }
+        }
+    }
+
+    node* mirror(node* n)
+    {
+        node* root= new node();
+        root->data=n->data;
+        root->lchild=NULL;
+        root->rchild=NULL;
+        queue q1,q2;
+        q1.enqueue(n);
+        q2.enqueue(root);
+        while(!q1.isEmpty())
+        {
+            node *t=q1.dequeue();
+            node* r=q2.dequeue();
+            if(t->rchild)
+            {
+                node* temp= new node();
+                temp->data=t->rchild->data;
+                temp->lchild=NULL;
+                temp->rchild=NULL;
+                r->lchild=temp;
+                q2.enqueue(r->lchild);
+                q1.enqueue(t->rchild);
+            }
+            if(t->lchild)
+            {
+                node* temp= new node();
+                temp->data=t->lchild->data;
+                temp->lchild=NULL;
+                temp->rchild=NULL;
+                r->rchild=temp;
+                q2.enqueue(r->rchild);
+                q1.enqueue(t->lchild);
+            }
+        }
+
+        return root;
+    }
+
+    void preOrder(node *n)
+    {
+        if(n!=NULL)
+        {
+            cout<<n->data<<" ";
+            preOrder(n->lchild);
+            preOrder(n->rchild);
+        }
+    }
+
+    void Inorder(node *n)
+    {
+        if(n!=NULL)
+        {
+            Inorder(n->lchild);
+            cout<<n->data<<" ";
+            Inorder(n->rchild);
+        }
+    }
+
+    void Postorder(node *n)
+    {
+        if(n!=NULL)
+        {
+            Postorder(n->lchild);
+            Postorder(n->rchild);
+            cout<<n->data<<" ";
+        }
+    }
+};
+
+int main()
+{
+    Tree t;
+    cout<<endl;
+    node *root=t.mirror(t.r);
+    cout<<"Tree Mirrored"<<endl;
+    cout<<"Preorder Traversal: ";
+    t.preOrder(root);
+    cout<<endl;
+    cout<<"Inorder Traversal: ";
+    t.Inorder(root);
+    cout<<endl;
+    cout<<"Postorder Traversal: ";
+    t.Postorder(root);
+    cout<<endl;
+    return 0;
+}
