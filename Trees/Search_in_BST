@@ -1,0 +1,92 @@
+Search a element in a BST
+
+#include <iostream>
+
+using namespace std;
+
+class node
+{
+public:
+    node *lchild;
+    int data;
+    node *rchild;
+};
+
+class BST
+{
+    public:
+    node *root;
+    BST()
+    {
+        int d;
+        cout<<"Enter root node"<<endl;
+        cin>>d;
+        root=new node();
+        root->data=d;
+        root->lchild=NULL;
+        root->rchild=NULL;
+        d=-2;
+        while(d!=-1)
+        {
+            cout<<"Insert element ";
+            cin>>d;
+            if(d!=-1)
+                insert(root,d);
+        }
+    }
+
+    void insert(node *n, int d)
+    {
+        node *t=new node();
+        t->data=d;
+        t->lchild=NULL;
+        t->rchild=NULL;
+        node *r=NULL;
+        while(n!=NULL)
+        {
+            if(d>(n->data))
+            {
+                r=n;
+                n=n->rchild;
+            }
+            else
+            {
+                r=n;
+                n=n->lchild;
+            }
+        }
+        if(d>(r->data))
+            r->rchild=t;
+        else
+            r->lchild=t;
+
+    }
+
+    bool search(node *n, int key)
+    {
+        while(n!=NULL)
+        {
+            if(key==n->data)
+                return true;
+            else if(key>n->data)
+                n=n->rchild;
+            else
+                n=n->lchild;
+        }
+        return false;
+    }
+
+};
+
+int main()
+{
+    BST t;
+    int x;
+    cout<<"Enter element to be searched: ";
+    cin>>x;
+    if(t.search(t.root, x))
+        cout<<"Element present";
+    else
+        cout<<"Element not present";
+    return 0;
+}
