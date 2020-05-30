@@ -1,0 +1,109 @@
+Creating a BST using user in input repeated insertion
+
+#include <iostream>
+
+using namespace std;
+
+class node
+{
+public:
+    node *lchild;
+    int data;
+    node *rchild;
+};
+
+class BST
+{
+    public:
+    node *root;
+    BST()
+    {
+        int d;
+        cout<<"Enter root node"<<endl;
+        cin>>d;
+        root=new node();
+        root->data=d;
+        root->lchild=NULL;
+        root->rchild=NULL;
+        d=-2;
+        while(d!=-1)
+        {
+            cout<<"Insert element ";
+            cin>>d;
+            if(d!=-1)
+                insert(root,d);
+        }
+    }
+
+    void insert(node *n, int d)
+    {
+        node *t=new node();
+        t->data=d;
+        t->lchild=NULL;
+        t->rchild=NULL;
+        node *r=NULL;
+        while(n!=NULL)
+        {
+            if(d>(n->data))
+            {
+                r=n;
+                n=n->rchild;
+            }
+            else
+            {
+                r=n;
+                n=n->lchild;
+            }
+        }
+        if(d>(r->data))
+            r->rchild=t;
+        else
+            r->lchild=t;
+
+    }
+
+    void preOrder(node *n)
+    {
+        if(n!=NULL)
+        {
+            cout<<n->data<<" ";
+            preOrder(n->lchild);
+            preOrder(n->rchild);
+        }
+    }
+
+    void inOrder(node *n)
+    {
+        if(n!=NULL)
+        {
+            inOrder(n->lchild);
+            cout<<n->data<<" ";
+            inOrder(n->rchild);
+        }
+    }
+
+    void postOrder(node *n)
+    {
+        if(n!=NULL)
+        {
+            postOrder(n->lchild);
+            postOrder(n->rchild);
+            cout<<n->data<<" ";
+        }
+    }
+};
+
+int main()
+{
+    BST t;
+    cout<<"PreOrder Traversal: ";
+    t.preOrder(t.root);
+    cout<<endl;
+    cout<<"InOrder Traversal: ";
+    t.inOrder(t.root);
+    cout<<endl;
+    cout<<"PostOrder Traversal: ";
+    t.postOrder(t.root);
+    cout<<endl;
+    return 0;
+}
