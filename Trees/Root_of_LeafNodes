@@ -1,0 +1,133 @@
+Program to find the root of every leaf nodes
+
+#include <iostream>
+
+using namespace std;
+
+class node
+{
+public:
+    node *lchild;
+    int data;
+    node *rchild;
+};
+
+class queue
+{
+    public:
+    int size,front,rear;
+    node **a;
+    queue()
+    {
+        size=100;
+        a=new node*[size];
+        front=rear=-1;
+    }
+    void enqueue(node* x)
+    {
+        a[++rear]=x;
+    }
+    node* dequeue()
+    {
+        return a[++front];
+    }
+    bool isEmpty()
+    {
+        if(rear==-1 || front==rear)
+            return true;
+        else
+            return false;
+    }
+};
+
+class BST
+{
+    public:
+    node *root;
+    BST()
+    {
+        int d;
+        cout<<"Enter root node"<<endl;
+        cin>>d;
+        root=new node();
+        root->data=d;
+        root->lchild=NULL;
+        root->rchild=NULL;
+        d=-2;
+        while(d!=-1)
+        {
+            cout<<"Insert element ";
+            cin>>d;
+            if(d!=-1)
+                insert(root,d);
+        }
+    }
+
+    void insert(node *n, int d)
+    {
+        node *t=new node();
+        t->data=d;
+        t->lchild=NULL;
+        t->rchild=NULL;
+        node *r=NULL;
+        while(n!=NULL)
+        {
+            if(d>(n->data))
+            {
+                r=n;
+                n=n->rchild;
+            }
+            else
+            {
+                r=n;
+                n=n->lchild;
+            }
+        }
+        if(d>(r->data))
+            r->rchild=t;
+        else
+            r->lchild=t;
+
+    }
+
+    void root_to_leafNodes(node *n)
+    {
+        queue q;
+        q.enqueue(n);
+        while(!q.isEmpty())
+        {
+            node *t=q.dequeue();
+            if(t->lchild)
+            {
+                if(!t->lchild->lchild && !t->lchild->rchild)
+                    cout<<t->data<<" ";
+                q.enqueue(t->lchild);
+            }
+            if(t->rchild)
+            {
+                if(t->lchild)
+                {
+                    if(!(!t->lchild->lchild && !t->lchild->rchild))
+                    {
+                        if(!t->rchild->lchild && !t->rchild->rchild)
+                        cout<<t->data<<" ";
+                        q.enqueue(t->rchild);
+                    }
+                }
+                else
+                {
+                        if(!t->rchild->lchild && !t->rchild->rchild)
+                        cout<<t->data<<" ";
+                        q.enqueue(t->rchild);
+                }
+            }
+        }
+    }
+};
+
+int main()
+{
+    BST t;
+    t.root_to_leafNodes(t.root);
+    return 0;
+}
