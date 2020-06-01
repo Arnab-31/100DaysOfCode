@@ -9,6 +9,34 @@ struct node
     node* rchild;
 };
 
+class stack
+{
+    int top,size;
+    node** n;
+    public:
+    stack()
+    {
+        size=100;
+        n=new node*[100];
+        top=-1;
+    }
+    void push(node* x)
+    {
+        n[++top]=x;
+    }
+    node* pop()
+    {
+        return n[top--];
+    }
+    bool isEmpty()
+    {
+        if(top==-1)
+            return true;
+        else
+            return false;
+    }
+};
+
 class queue
 {
     int size,front,rear;
@@ -38,7 +66,6 @@ class queue
         return false;
   }
 };
-
 
 class Tree
 {
@@ -84,49 +111,38 @@ class Tree
         }
     }
 
-    void Inorder(node *n, int x)
+    void nth_Inorder(node *n, int x)
     {
-        queue q;
+        stack s;
         int c=0;
-        q.enqueue(n);
-        while(!q.isEmpty() && n!=NULL)
+        while(!s.isEmpty() || n!=NULL)
         {
-            node *t=q.dequeue(;
-            if(n->lchild)
+            if(n!=NULL)
             {
-                q.enqueue(n->lchild);
+                s.push(n);
+                n=n->lchild;
             }
             else
             {
-                c++;
+                node* t=s.pop();
+                c=c+1;
                 if(c==x)
                 {
                     cout<<t->data;
-                    return;
                 }
-                
+                n=t->rchild;
             }
         }
     }
-    
-    void Inorder(node *n)
-    {
-        if(n!=NULL)
-        {
-            Inorder(n->lchild);
-            cout<<n->data<<" ";
-            Inorder(n->rchild);
-        }
-    }
-
 };
 
 int main()
 {
     Tree t;
     cout<<endl;
-    cout<<"Diameter of tree: ";
-    int a=t.diameter(t.r);
-    cout<<a;
+    int x;
+    cout<<"Enter n: ";
+    cin>>x;
+    t.nth_Inorder(t.r,x);
     return 0;
 }
