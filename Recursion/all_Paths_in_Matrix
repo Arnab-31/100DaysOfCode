@@ -1,0 +1,26 @@
+Program to find all the paths in matrix from cell(1,1) to (n,m) where n and m are the rows and columns of the matrix
+
+#include <iostream>
+
+using namespace std;
+
+int all_paths(int n, int m, int row, int col)
+{
+    if(n==row || m==col)
+        return 1;
+    int paths=0;
+    paths+=all_paths(n+1,m,row,col);
+    paths+=all_paths(n,m+1,row,col);
+    return paths;
+}
+
+int main()
+{
+    int n,m;
+    cout << "Enter n: ";
+    cin>>n;
+    cout<<"Enter m: ";
+    cin>>m;
+    cout<<"All paths: "<<all_paths(1, 1, n, m);
+    return 0;
+}
