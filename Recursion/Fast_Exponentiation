@@ -1,0 +1,38 @@
+Fast and normal exponentiation
+
+#include <iostream>
+
+using namespace std;
+
+int expo(int n, int m)
+{
+    if(m==0)
+        return 1;
+    else
+    {
+        return n*expo(n, m-1);
+    }
+}
+
+int fast_expo(int n,int m)
+{
+    if(m==0)
+        return 1;
+    if(m==2)
+        return n*n;
+    if(m%2==0)
+        return fast_expo(fast_expo(n,m/2), 2);
+    else
+        return n*fast_expo(n,m-1);
+}
+
+int main()
+{
+    int n,m;
+    cout << "Enter n: ";
+    cin>>n;
+    cout<<"Enter m: ";
+    cin>>m;
+    cout<<fast_expo(n,m);
+    return 0;
+}
