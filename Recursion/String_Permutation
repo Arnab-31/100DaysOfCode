@@ -1,0 +1,48 @@
+Program to find all the permutation of a given string using recursion
+Link: https://www.youtube.com/watch?v=GuTPwotSdYw&t=3s
+
+#include <iostream>
+#include <string.h>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+
+void interchange(string &s, int i,int j)
+{
+    char c=s[i];
+    s[i]=s[j];
+    s[j]=c;
+}
+vector <string> v;
+void permutation(string s, int l, int r)
+{
+    if(l==r)
+    {
+        if(count(v.begin(), v.end(), s)>0)
+            return;
+        cout<<s<<endl;
+        v.push_back(s);
+    }
+    else
+    {
+        for(int i=l;i<=r;i++)
+        {
+            interchange(s, l, i);
+            permutation(s,l+1,r);
+            interchange(s,l,i);
+        }
+    }
+}
+
+
+
+int main()
+{
+    string s;
+    cout << "Enter a word: ";
+    cin>>s;
+    permutation(s, 0, s.length()-1);
+    return 0;
+}
