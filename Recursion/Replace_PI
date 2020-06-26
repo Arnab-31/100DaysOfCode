@@ -1,0 +1,33 @@
+Program to replace pi with 3.14 in a string recursively
+
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+
+string r="";
+void replace(string s, int a, int l)
+{
+    if(a==l)
+        return;
+    if(s[a]=='p' && s[a+1]=='i')
+    {
+        r=r+"3.14";
+        replace(s, a+2, l);
+    }
+    else
+    {
+        r=r+s[a];
+        replace(s, a+1, l);
+    }
+}
+
+int main()
+{
+    string s;
+    cout << "Enter string: ";
+    getline(cin, s);
+    replace(s, 0, s.length());
+    cout<<r;
+    return 0;
+}
