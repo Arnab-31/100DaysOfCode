@@ -1,0 +1,31 @@
+Program to reverse a array recursively
+
+#include <iostream>
+
+using namespace std;
+
+void reverse_array(int *A, int a, int b)
+{
+    if(a>=b)
+        return;
+    int temp = A[a];
+    A[a]=A[b];
+    A[b]=temp;
+    reverse_array(A, a+1, b-1);
+}
+
+int main()
+{
+    int n;
+    cout<<"Enter number of elements: ";
+    cin>>n;
+    int A[n];
+    cout <<"Enter elements"<<endl;
+    for(int i=0;i<n;i++)
+        cin>>A[i];
+    reverse_array(A,0,n-1);
+    cout<<endl;
+    for(int i=0;i<n;i++)
+        cout<<A[i]<<" ";
+    return 0;
+}
