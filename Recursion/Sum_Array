@@ -1,0 +1,27 @@
+Program to find sum of array recursively
+
+
+#include <iostream>
+
+using namespace std;
+
+int array_sum(int A[], int n)
+{
+    if(n==0)
+        return A[n];
+    return A[n] + array_sum(A,n-1);
+}
+
+int main()
+{
+    int n;
+    cout<<"Enter number of elements: ";
+    cin>>n;
+    int A[n];
+    cout <<"Enter elements"<<endl;
+    for(int i=0;i<n;i++)
+        cin>>A[i];
+    cout<<endl;
+    cout<<"Sum of Array: "<<array_sum(A,n-1);
+    return 0;
+}
