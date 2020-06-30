@@ -1,0 +1,36 @@
+Programt to find the minimum number of jumps required to reach the end of array
+https://www.geeksforgeeks.org/minimum-number-of-jumps-to-reach-end-of-a-given-array/
+
+
+#include <iostream>
+
+using namespace std;
+
+int minJump(int A[], int l, int r)
+{
+    if(l>=r)
+        return 0;
+    int max = 0,pos=0;
+    for(int i=l+1;i<=l+A[l];i++)
+    {
+        if(A[i]>max)
+        {
+            max = A[i];
+            pos=i;
+        }
+    }
+    return 1 + minJump(A, pos, r);
+}
+int main()
+{
+    int n;
+    cout <<"Enter number of elements: ";
+    cin>>n;
+    int A[n];
+    cout<<"Enter elements";
+    for(int i=0; i<n; i++)
+        cin>>A[i];
+    cout<<"Min jumps required: "<<minJump(A,0,n-1);
+    return 0;
+}
+
