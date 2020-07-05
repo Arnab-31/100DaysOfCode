@@ -1,0 +1,55 @@
+Program to form a possible equation with given operands and result by filling the appropiate operators
+
+#include <iostream>
+
+using namespace std;
+
+bool solve(int A[], char c[], int cur, int n, int r, int t)
+{
+    if(cur==n)
+    {
+        if(t==r)
+        {
+            for(int i=0;i<n;i++)
+            {
+            cout<<c[i];
+            cout<<A[i];
+            }
+            cout<<" = "<<r;
+            cout<<endl;
+            return true;
+        }
+        return false;
+    }
+    c[cur]='+';
+    if(solve(A,c,cur+1,n,r,t+A[cur]))
+    {
+        return true;
+    }
+    else
+    {
+        c[cur]='-';
+        if(solve(A,c,cur+1,n,r,t-A[cur]))
+            return true;
+        else
+            return false;
+    }
+}
+int main()
+{
+    int n,r;
+    cout<<"Enter number of operands: ";
+    cin>>n;
+    int A[n];
+    cout<<"Enter equation without operators: ";
+    for(int i=0;i<n;i++)
+        cin>>A[i];
+    char c[n];
+    cout<<"Enter result of the equation: ";
+    cin>>r;
+    if(solve(A,c,0,n,r,0))
+        cout<<"Equation solved"<<endl;
+    else
+        cout<<"Equation could not be solved"<<endl;
+    return 0;
+}
