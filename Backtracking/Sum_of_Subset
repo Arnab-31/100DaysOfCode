@@ -1,0 +1,57 @@
+Find all the subsets of a set which adds up to a required total given by user
+
+#include <iostream>
+
+using namespace std;
+
+bool solveSubset(int A[], int a, int b, int cur, int s, int n)
+{
+    static int sol[100]={0};
+    if(a==s)
+    {
+        for(int i=0;i<n;i++)
+        {
+            if(sol[i]==1)
+                cout<<A[i]<<",";
+        }
+        cout<<endl;
+        return false;
+    }
+    if(a+b<s || cur>=n)
+        return false;
+    a=a+A[cur];
+    b=b-A[cur];
+    sol[cur]=1;
+    if(solveSubset(A,a,b,cur+1,s,n))
+        return true;
+    else
+    {
+        a=a-A[cur];
+        b=b+A[cur];
+        sol[cur]=0;
+        return solveSubset(A,a,b,cur+1,s,n);
+    }
+}
+
+int main()
+{
+    int n;
+    cout<<"Enter number of elements in the set: ";
+    cin>>n;
+    int A[n];
+    cout<<"Enter elements"<<endl;
+    int ts=0;
+    for(int i=0;i<n;i++)
+    {
+        cin>>A[i];
+        ts+=A[i];
+    }
+    int s;
+    cout<<"Enter sum: ";
+    cin>>s;
+    if(solveSubset(A,0,ts,0,s,n))
+        cout<<"Execution complete";
+    else
+        cout<<"Execution complete";
+    return 0;
+}
