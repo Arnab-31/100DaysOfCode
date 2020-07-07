@@ -19,7 +19,7 @@ bool isPossible(long long int a[], long long int n, long long int m, long long i
         {
             s=a[i];
             p++;
-            if(p>m)
+            if(p>m || s>mid)
                 return false;
         }
     }
