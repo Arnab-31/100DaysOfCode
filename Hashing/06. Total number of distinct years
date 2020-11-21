@@ -1,0 +1,41 @@
+Question link:  https://www.geeksforgeeks.org/find-total-number-of-distinct-years-from-a-string/
+
+Solution: 
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int countDistictYears(string str)
+{
+    unordered_set <string> distictDates;
+    string date="";
+
+    for(int i=0;i<str.length(); i++)
+    {
+            if( isdigit(str[i]))
+            {
+
+                date=date+str[i];
+
+                if(date.length()==4){
+                    if(distictDates.find((date)) == distictDates.end())
+                        distictDates.insert((date));                      // Sets only contain distinct values so duplicate dates will not be inserted
+                    date="";
+                }
+
+                continue;
+            }
+
+            date="";
+
+    }
+
+    return distictDates.size();
+}
+
+// Driver code
+int main()
+{
+    cout << " Number of distinct dates are " << countDistictYears("UN was established on 24-10-1947.India got freedom on 15-08-1947. I was born in 31-05-2001");
+    return 0;
+}
