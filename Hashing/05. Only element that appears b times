@@ -1,0 +1,31 @@
+Question Link: https://www.geeksforgeeks.org/find-element-appears-b-times/
+
+Solution: 
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int findRepeating(int arr[], int n, int a, int b)
+{
+   unordered_set<int> s;
+   int s1=0,s2=0;
+   for (int i=0; i<n; i++)
+   {
+      if (s.find(arr[i]) == s.end()) {          // Avg TC of this line is 0(1) so we use sets
+        s.insert(arr[i]);         
+        s1=s1+(arr[i]*a);
+      }
+
+      s2=s2+arr[i];
+   }
+   return (s1-s2)/(a-b);
+}
+
+// driver code
+int main()
+{
+    int arr[] = { 1, 1, 2, 2, 2, 3, 3, 3, 1, 4, 4};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    cout << findRepeating(arr, n, 3, 2);
+    return 0;
+}
