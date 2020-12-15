@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+void BFS ( int G[][7] , int x, int n)
+{
+    queue <int> q;
+    int visited[7] = {0};
+
+    cout<<x<<" ";
+    visited[x]=1;
+    q.push(x);
+
+
+    while(!q.empty())
+    {
+        int a = q.front();
+        q.pop();
+        for(int i = 1;i<n;i++)
+        {
+            if(G[a][i] == 1 && visited[i]==0)
+            {
+                cout<<i<<" ";
+                visited[i]=1;
+                q.push(i);
+            }
+        }
+    }
+}
+
+
+void DFS (int G[][7], int x, int n)
+{
+    static int visited[7]={0};
+
+    cout<<x<<" ";
+    visited[x]=1;
+    for(int i=1;i<n;i++)
+    {
+        if(G[x][i] == 1 && visited[i]==0)
+            DFS(G,i,n);
+    }
+}
+
+int main()
+{
+    int G[7][7] = {
+        {0,0,0,0,0,0,0},
+        {0,0,1,1,0,0,0},
+        {0,1,0,0,1,0,0},
+        {0,1,0,0,1,0,0},
+        {0,0,1,1,0,1,1},
+        {0,0,0,0,1,0,0},
+        {0,0,0,0,1,0,0}};
+
+    BFS(G,6,7);   //3 is the index from where BFS starts and 7 is the size of matrix
+    //DFS(G,6,7);
+    return 0;
+}
