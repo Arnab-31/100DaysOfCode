@@ -1,0 +1,96 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+class Graph
+{
+    list <int> *adj;
+    int size;
+
+    public:
+    Graph(int n)
+    {
+        adj = new list<int> [n];
+        size=n;
+    }
+
+    void addEdge(int a,int b)
+    {
+        adj[a].push_back(b);
+        adj[b].push_back(a);
+    }
+
+    void BFS(int x)
+    {
+        int visited[size] = {0};
+        queue <int> q;
+
+        cout<<x<<" ";
+        visited[x]=1;
+        q.push(x);
+
+       while(!q.empty())
+       {
+           int a = q.front();
+           q.pop();
+           for(auto j: adj[a])
+           {
+               if(visited[j]==0)
+               {
+                   cout<<j<<" ";
+                   visited[j]=1;
+                   q.push(j);
+               }
+           }
+       }
+    }
+
+    void DFS (int x)
+    {
+        static int visited[5] = {0};
+
+        cout<<x<<" ";
+        visited[x]=1;
+
+        for(auto j: adj[x])
+        {
+            if(visited[j]==0)
+                DFS(j);
+        }
+    }
+
+    void displayGraph()
+    {
+        for(int i=0;i<size;i++)
+        {
+            cout<<i;
+
+            for(auto i: adj[i])
+                cout<<" --> "<<i;
+
+            cout<<endl;
+        }
+    }
+
+
+};
+
+
+int main()
+{
+    int N = 5;
+    Graph G(N);
+    G.addEdge(0, 1);
+    G.addEdge(0, 4);
+    G.addEdge(1, 2);
+    G.addEdge(1, 3);
+    G.addEdge(1, 4);
+    G.addEdge(2, 3);
+    G.addEdge(3, 4);
+
+    G.displayGraph();
+    G.BFS(1);    //1 is the index from where BFS starts
+    g.DFS(2);
+    return 0;
+}
